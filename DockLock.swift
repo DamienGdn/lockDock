@@ -98,7 +98,7 @@ final class App: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ n: Notification) {
         let opts = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         guard AXIsProcessTrustedWithOptions(opts) else {
-            NSLog("Permission Accessibilité requise, relancer après l'avoir accordée.")
+            NSLog("Accessibility permission required, relaunch after granting it.")
             NSApp.terminate(nil); return
         }
         let mask: CGEventMask = [CGEventType.mouseMoved, .leftMouseDragged, .rightMouseDragged, .otherMouseDragged]
@@ -106,7 +106,7 @@ final class App: NSObject, NSApplicationDelegate, NSMenuDelegate {
         guard let t = CGEvent.tapCreate(tap: .cgSessionEventTap, place: .headInsertEventTap,
                                         options: .defaultTap, eventsOfInterest: mask,
                                         callback: callback, userInfo: nil) else {
-            NSLog("Création du tap impossible"); NSApp.terminate(nil); return
+            NSLog("Could not create the event tap"); NSApp.terminate(nil); return
         }
         tap = t
         CFRunLoopAddSource(CFRunLoopGetCurrent(), CFMachPortCreateRunLoopSource(nil, t, 0), .commonModes)
@@ -132,12 +132,12 @@ final class App: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
 
-        let toggle = NSMenuItem(title: "Verrouiller le Dock", action: #selector(flip), keyEquivalent: "")
+        let toggle = NSMenuItem(title: NSLocalizedString("Lock the Dock", comment: ""), action: #selector(flip), keyEquivalent: "")
         toggle.target = self
         toggle.state = lockEnabled ? .on : .off
         menu.addItem(toggle)
 
-        let screens = NSMenuItem(title: "Écran qui garde le Dock", action: nil, keyEquivalent: "")
+        let screens = NSMenuItem(title: NSLocalizedString("Display that keeps the Dock", comment: ""), action: nil, keyEquivalent: "")
         let screensMenu = NSMenu()
         let keep = keepDisplayID()
         for s in NSScreen.screens {
@@ -151,7 +151,7 @@ final class App: NSObject, NSApplicationDelegate, NSMenuDelegate {
         screens.submenu = screensMenu
         menu.addItem(screens)
 
-        let marginItem = NSMenuItem(title: "Marge du bord", action: nil, keyEquivalent: "")
+        let marginItem = NSMenuItem(title: NSLocalizedString("Edge margin", comment: ""), action: nil, keyEquivalent: "")
         let marginMenu = NSMenu()
         for v in [2, 4, 8, 16, 32] {
             let it = NSMenuItem(title: "\(v) px", action: #selector(pickMargin(_:)), keyEquivalent: "")
@@ -163,18 +163,23 @@ final class App: NSObject, NSApplicationDelegate, NSMenuDelegate {
         marginItem.submenu = marginMenu
         menu.addItem(marginItem)
 
-        let login = NSMenuItem(title: "Lancer au démarrage", action: #selector(toggleLogin), keyEquivalent: "")
+        let login = NSMenuItem(title: NSLocalizedString("Launch at login", comment: ""), action: #selector(toggleLogin), keyEquivalent: "")
         login.target = self
         login.isEnabled = Bundle.main.bundleURL.pathExtension == "app"
         login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(login)
 
         menu.addItem(.separator())
-        let edge = dockEdge == .bottom ? "en bas" : (dockEdge == .left ? "à gauche" : "à droite")
-        let info = NSMenuItem(title: "Dock \(edge) · maintenir ⌥ pour passer", action: nil, keyEquivalent: "")
+        let infoKey: String
+        switch dockEdge {
+        case .bottom: infoKey = "Dock at the bottom · hold ⌥ to pass"
+        case .left: infoKey = "Dock on the left · hold ⌥ to pass"
+        case .right: infoKey = "Dock on the right · hold ⌥ to pass"
+        }
+        let info = NSMenuItem(title: NSLocalizedString(infoKey, comment: ""), action: nil, keyEquivalent: "")
         info.isEnabled = false
         menu.addItem(info)
-        menu.addItem(withTitle: "Quitter", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     }
 
     @objc func flip() { lockEnabled.toggle(); setIcon() }
@@ -191,7 +196,7 @@ final class App: NSObject, NSApplicationDelegate, NSMenuDelegate {
         do {
             if s.status == .enabled { try s.unregister() } else { try s.register() }
         } catch {
-            NSLog("Lancement au démarrage impossible : \(error)")
+            NSLog("Could not change launch at login: \(error)")
         }
     }
 }

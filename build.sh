@@ -7,6 +7,7 @@ rm -rf build
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 swiftc -O DockLock.swift -o "$APP/Contents/MacOS/DockLock"
 cp Info.plist "$APP/Contents/Info.plist"
+cp -R Resources/*.lproj "$APP/Contents/Resources/"
 swift scripts/make-icon.swift build/icon.iconset
 iconutil -c icns build/icon.iconset -o "$APP/Contents/Resources/AppIcon.icns"
 xattr -cr "$APP"

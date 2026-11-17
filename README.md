@@ -12,6 +12,7 @@ A macOS menu bar app that **stops the Dock from jumping to another display** whe
 - **Adjustable margin**: 2, 4, 8, 16 or 32 px.
 - **Hold ⌥ (Option)** to lift the lock for the duration of the gesture.
 - **Launch at login** (checkbox in the menu).
+- **Localized**: the menu follows the system language (English, French).
 
 An edge shared between two displays stays crossable: only an outer edge of a protected display is blocked.
 

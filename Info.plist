@@ -3,6 +3,8 @@
 <plist version="1.0">
 <dict>
   <key>CFBundleIdentifier</key><string>com.damiengdn.lockdock</string>
+  <key>CFBundleDevelopmentRegion</key><string>en</string>
+  <key>CFBundleLocalizations</key><array><string>en</string><string>fr</string></array>
   <key>CFBundleName</key><string>lockDock</string>
   <key>CFBundleDisplayName</key><string>lockDock</string>
   <key>CFBundleExecutable</key><string>DockLock</string>
