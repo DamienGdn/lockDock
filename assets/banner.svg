@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="320" fill="url(#bg)"/>
+  <!-- deux écrans -->
+  <rect x="760" y="70" width="230" height="140" rx="10" fill="#1e293b" stroke="#60a5fa" stroke-width="4"/>
+  <rect x="1010" y="90" width="180" height="110" rx="10" fill="#1e293b" stroke="#475569" stroke-width="4" stroke-dasharray="10 8"/>
+  <!-- Dock sur l'écran principal -->
+  <rect x="800" y="180" width="150" height="18" rx="9" fill="#60a5fa"/>
+  <circle cx="825" cy="189" r="5" fill="#0f172a"/><circle cx="850" cy="189" r="5" fill="#0f172a"/>
+  <circle cx="875" cy="189" r="5" fill="#0f172a"/><circle cx="900" cy="189" r="5" fill="#0f172a"/>
+  <circle cx="925" cy="189" r="5" fill="#0f172a"/>
+  <!-- flèche bloquée vers l'écran secondaire -->
+  <path d="M1000 205 L1075 205" stroke="#f87171" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"/>
+  <g transform="translate(1100,215)" stroke="#f87171" stroke-width="6" stroke-linecap="round">
+    <line x1="-12" y1="-12" x2="12" y2="12"/><line x1="12" y1="-12" x2="-12" y2="12"/>
+  </g>
+  <text x="80" y="150" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="84" font-weight="700" fill="#f8fafc">lockDock</text>
+  <text x="84" y="205" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="30" fill="#bfdbfe">Le Dock macOS reste sur ton écran principal.</text>
+</svg>
