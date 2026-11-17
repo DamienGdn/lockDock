@@ -20,5 +20,5 @@
     <line x1="-12" y1="-12" x2="12" y2="12"/><line x1="12" y1="-12" x2="-12" y2="12"/>
   </g>
   <text x="80" y="150" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="84" font-weight="700" fill="#f8fafc">lockDock</text>
-  <text x="84" y="205" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="30" fill="#bfdbfe">Le Dock macOS reste sur ton écran principal.</text>
+  <text x="84" y="205" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="30" fill="#bfdbfe">The macOS Dock stays on your main display.</text>
 </svg>

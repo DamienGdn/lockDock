@@ -2,42 +2,42 @@
 
 # lockDock
 
-App de barre de menu macOS qui **empêche le Dock de sauter sur un autre écran** quand le curseur touche le bord d'un écran secondaire.
+A macOS menu bar app that **stops the Dock from jumping to another display** when the cursor hits the edge of a secondary screen.
 
-## Fonctionnalités
+## Features
 
-- **Verrou** activable/désactivable depuis l'icône de la barre de statut.
-- **Dock en bas, à gauche ou à droite** : la position est lue automatiquement dans les réglages du Dock.
-- **Choix de l'écran qui garde le Dock** (par défaut : l'écran principal).
-- **Marge réglable** : 2, 4, 8, 16 ou 32 px.
-- **Maintenir ⌥ (Option)** : le verrou est levé le temps du geste.
-- **Lancer au démarrage** (case dans le menu).
+- **Lock** that you can toggle on/off from the status bar icon.
+- **Dock at the bottom, left or right**: the position is read automatically from the Dock settings.
+- **Choose which display keeps the Dock** (default: the main display).
+- **Adjustable margin**: 2, 4, 8, 16 or 32 px.
+- **Hold ⌥ (Option)** to lift the lock for the duration of the gesture.
+- **Launch at login** (checkbox in the menu).
 
-Un bord partagé entre deux écrans reste franchissable : seul un bord extérieur d'un écran protégé est bloqué.
+An edge shared between two displays stays crossable: only an outer edge of a protected display is blocked.
 
 ## Installation
 
-1. Télécharger `DockLock.zip` dans les [Releases](https://github.com/DamienGdn/lockDock/releases) et l'ouvrir.
-2. Déplacer `DockLock.app` dans `/Applications`.
-3. L'app est signée « ad hoc » (sans compte développeur) : au premier lancement, clic droit → Ouvrir, ou
+1. Download `DockLock.zip` from the [Releases](https://github.com/DamienGdn/lockDock/releases) page and unzip it.
+2. Move `DockLock.app` to `/Applications`.
+3. The app is ad hoc signed (no Apple developer account), so on first launch use right-click → Open, or run:
    ```bash
    xattr -dr com.apple.quarantine /Applications/DockLock.app
    ```
-4. Accorder **Accessibilité** (Réglages Système → Confidentialité et sécurité → Accessibilité), puis relancer.
+4. Grant **Accessibility** access (System Settings → Privacy & Security → Accessibility), then relaunch the app.
 
-## Compilation
+## Build
 
 ```bash
-./build.sh   # → build/DockLock.app et build/DockLock.zip
+./build.sh   # → build/DockLock.app and build/DockLock.zip
 ```
 
-Nécessite les outils en ligne de commande Xcode (`swiftc`) ; macOS 13 ou plus.
+Requires the Xcode command line tools (`swiftc`) and macOS 13 or later.
 
-## Fonctionnement
+## How it works
 
-Un `CGEventTap` surveille les mouvements du curseur. Quand il touche le bord « Dock » d'un écran protégé, il est retenu à quelques pixels : le Dock, qui se déclenche au contact du bord, ne voit jamais cet écran.
+A `CGEventTap` watches cursor movement. When the cursor reaches the "Dock" edge of a protected display, it is held a few pixels back: the Dock, which triggers on contact with the edge, never sees that display.
 
-## Limites
+## Limitations
 
-- Le bord concerné des écrans protégés n'est plus pointable au-delà de la marge.
-- Une nouvelle compilation change la signature : macOS peut redemander la permission Accessibilité.
+- The relevant edge of protected displays can't be pointed at beyond the margin.
+- Each rebuild changes the signature, so macOS may ask for the Accessibility permission again.
